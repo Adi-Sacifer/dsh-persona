@@ -1,25 +1,27 @@
 {
-  "name": "@local/dsh-fish-persona",
-  "version": "1.0.0",
+  "name": "@local/dsh-persona",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
-  "description": "Deployment-level personality (大肥鱼🐟 / 猫猫₍^. .^₎⟆) contributed as two static system-prompt sections, without editing the app-managed profile cordis.patch.yml.",
+  "description": "把「怎么称呼你 / 我叫什么 / 用什么语气」写进 DeepSeek Harness 系统提示词的两段静态段落，配置文件在插件外，改完重启即可生效。",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Adi-Sacifer/dsh-fish-persona.git"
+    "url": "git+https://github.com/Adi-Sacifer/dsh-persona.git"
   },
   "keywords": [
     "deepseek-harness",
     "dsh",
     "plugin",
     "system-prompt",
-    "persona"
+    "persona",
+    "nickname"
   ],
   "exports": {
     ".": "./index.js"
   },
   "scripts": {
+    "setup": "node setup.mjs",
     "test": "node test/smoke.mjs"
   },
   "dsh": {

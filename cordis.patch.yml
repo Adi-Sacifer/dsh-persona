@@ -1,17 +1,24 @@
-# Bundle patch for dsh-fish-persona.
+# Bundle patch for dsh-persona.
 #
-# Inserted, not patched: id `fish-persona` does not exist in any lower bundle layer.
-# This file belongs to the plugin and is never rewritten by the desktop app, unlike
-# ~/.dsh/profiles/desktop/cordis.patch.yml.
+# Inserted, not patched: id `persona` 不存在于任何下层 bundle。
+# 这个文件属于插件自己，桌面端不会改写它（不像 ~/.dsh/profiles/desktop/cordis.patch.yml）。
 #
-# Config is optional; the defaults live in index.js:
-#   enabled     true       set false to mount the row without contributing prompt text
-#   earlyOrder  -500       section order of `local:fish-persona-prefix`
-#                          (harness identity is -1000, deployment persona prefix is 0)
-#   lateOrder   10300      section order of `local:fish-persona-suffix`
-#                          (deployment persona suffix is 10200 → this is the last text)
-#   earlyText   null       override the early persona text
-#   lateText    null       override the late persona text
+# 想在这里写死配置也可以（优先级高于 $DSH_HOME/persona.config.json）：
+#
+#   - insert:
+#       - id: persona
+#         name: '@local/dsh-persona'
+#         config:
+#           userName: 朋友
+#           userMark: ''
+#           assistantName: 小助手
+#           assistantMark: ''
+#           tone: warm          # warm | lively | calm
+#           emojiInChat: true
+#           strictWorkOutput: true
+#           extra: ''
+#
+# 日常改称呼用 `node setup.mjs` 就够了，不用动这个文件。
 - insert:
-    - id: fish-persona
-      name: '@local/dsh-fish-persona'
+    - id: persona
+      name: '@local/dsh-persona'
