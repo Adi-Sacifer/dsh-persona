@@ -1,0 +1,28 @@
+{
+  "name": "@local/dsh-fish-persona",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Deployment-level personality (大肥鱼🐟 / 猫猫₍^. .^₎⟆) contributed as two static system-prompt sections, without editing the app-managed profile cordis.patch.yml.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adi-Sacifer/dsh-fish-persona.git"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "system-prompt",
+    "persona"
+  ],
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "test": "node test/smoke.mjs"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" }
+  }
+}

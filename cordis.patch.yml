@@ -1,0 +1,17 @@
+# Bundle patch for dsh-fish-persona.
+#
+# Inserted, not patched: id `fish-persona` does not exist in any lower bundle layer.
+# This file belongs to the plugin and is never rewritten by the desktop app, unlike
+# ~/.dsh/profiles/desktop/cordis.patch.yml.
+#
+# Config is optional; the defaults live in index.js:
+#   enabled     true       set false to mount the row without contributing prompt text
+#   earlyOrder  -500       section order of `local:fish-persona-prefix`
+#                          (harness identity is -1000, deployment persona prefix is 0)
+#   lateOrder   10300      section order of `local:fish-persona-suffix`
+#                          (deployment persona suffix is 10200 → this is the last text)
+#   earlyText   null       override the early persona text
+#   lateText    null       override the late persona text
+- insert:
+    - id: fish-persona
+      name: '@local/dsh-fish-persona'
