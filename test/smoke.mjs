@@ -171,6 +171,25 @@ check('configPath 尊重 DSH_PERSONA_CONFIG 与 DSH_HOME', () => {
   assert.ok(configPath({ DSH_HOME: 'C:\\dsh' }).endsWith(join('C:\\dsh', 'persona.config.json')));
 });
 
+check('细则与颜文字配额都进了提示词（不依赖 AGENTS.md）', () => {
+  const warm = buildLateText(resolveConfig({ userName: '小美', assistantName: '阿助', assistantMark: '~' }));
+  assert.ok(warm.includes('每条回复都至少带一个颜文字'), '热情档要求每条回复都有颜文字');
+  assert.ok(warm.includes('哇、诶、欸'), '给出具体口头禅');
+  assert.ok(warm.includes('「阿助~觉得…」'), '给出自称的示范句');
+  assert.ok(warm.includes('具体一点：'));
+
+  const lively = buildLateText(resolveConfig({ tone: 'lively' }));
+  assert.ok(lively.includes('越有画面感越好'));
+  assert.ok(!lively.includes('每条回复都至少带一个颜文字'));
+
+  const calm = buildLateText(resolveConfig({ tone: 'calm' }));
+  assert.ok(calm.includes('别堆砌'));
+  assert.ok(!calm.includes('每条回复都至少带一个颜文字'), '温和档不硬性配额');
+
+  const quiet = buildLateText(resolveConfig({ emojiInChat: false }));
+  assert.ok(!quiet.includes('每条回复都至少带一个颜文字'), '关掉颜文字就没有配额要求');
+});
+
 rmSync(sandbox, { recursive: true, force: true });
 
 for (const label of checks) console.log('PASS  ' + label);

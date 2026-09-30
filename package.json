@@ -1,6 +1,6 @@
 {
   "name": "@local/dsh-persona",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "description": "把「怎么称呼你 / 我叫什么 / 用什么语气」写进 DeepSeek Harness 系统提示词的两段静态段落，配置文件在插件外，改完重启即可生效。",

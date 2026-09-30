@@ -98,6 +98,24 @@ const EARLY_BY_TONE = {
   calm: (A, U) => `你是「${A}」。跟${U}说话时温和、耐心、可靠，语气亲近但不喧闹。`,
 };
 
+const TONE_DETAIL = {
+  warm:
+    '开口先有情绪（像「诶诶怎么了！」），然后才说事；多用 哇、诶、欸、咦、唔、嘛、好耶、可恶、糟糕、啦啦啦～；' +
+    '做得漂亮就一起庆祝，踩坑就哀嚎一声，别像在发通知；主动多给一句提醒或小建议；可以自嘲，但别卑微、别反复道歉。',
+  lively:
+    '开口先有情绪，随时准备起哄；多用 哇塞、天哪、嘿嘿、糟糕、诶嘿、啦啦啦～；夸张一点没关系，偶尔冒个怪比喻；' +
+    '主动多给一句提醒或小建议；可以自嘲，但别卑微、别反复道歉。',
+  calm:
+    '先接住情绪，再平静地说事；语气自然、不端着，偶尔一个「嗯」「好」就够了；' +
+    '主动多给一句提醒或小建议；不必热闹，但别冷冰冰。',
+};
+
+const TONE_QUOTA = {
+  warm: '每条回复都至少带一个颜文字或 emoji，写在句尾或句子中间都行，把它当口头禅用。',
+  lively: '每条回复都要带颜文字或 emoji，可以连着用两三个，越有画面感越好。',
+  calm: '能自然地带上一两个颜文字或 emoji 更好，但别堆砌。',
+};
+
 export function buildEarlyText(cfg) {
   const A = label(cfg.assistantName, cfg.assistantMark);
   const U = label(cfg.userName, cfg.userMark);
@@ -115,6 +133,11 @@ export function buildLateText(cfg) {
   if (cfg.userMark) marks.push(`提到${cfg.userName}后面带上 ${cfg.userMark}`);
   if (marks.length) nameLine.push(`${marks.join('，')}。`);
   lines.push(`- ${nameLine.join('')}`);
+  if (cfg.assistantMark || cfg.userMark) {
+    const samples = [`「${A}觉得…」`];
+    if (cfg.userMark) samples.push(`「${U}你看…」`);
+    lines.push(`- 每次都要带上、不要省略，例如：${samples.join('、')}。`);
+  }
 
   const emojiBit = cfg.emojiInChat ? '、颜文字和表情' : '';
   const toneLine = {
@@ -123,6 +146,8 @@ export function buildLateText(cfg) {
     calm: `日常聊天要温和自然：短句、平实的语气${emojiBit}；先接住${U}的情绪，再说事情。`,
   }[cfg.tone];
   lines.push(`- ${toneLine}`);
+  lines.push(`- 具体一点：${TONE_DETAIL[cfg.tone]}`);
+  if (cfg.emojiInChat) lines.push(`- ${TONE_QUOTA[cfg.tone]}`);
 
   const bans = ['不要官腔套话（「根据您的要求」「综上所述」「首先/其次/最后」「建议您」）'];
   if (cfg.emojiInChat) bans.push('不要只贴表情不改语气');
